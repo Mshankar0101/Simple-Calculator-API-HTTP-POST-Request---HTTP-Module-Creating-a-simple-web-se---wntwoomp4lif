@@ -64,6 +64,9 @@ app.post('/multiply',(req,res)=>{
 app.post('/divide',(req,res)=>{
   const {num1,num2} = req.body;
   const result =  num1/num2
+   if(num2  === 0){
+    return res.send({"status":"error", "message": "Cannot divide by zero"});
+  }
   if(num1 < -1000000 || num2 < -1000000 || result < -1000000){
     return res.status(400).send({"status":"error", "message": "Underflow"});
    }
@@ -74,9 +77,7 @@ app.post('/divide',(req,res)=>{
     return res.send({"status":"error", "message": "Invalid data types"});
 
   }
- if(num2  === 0){
-    return res.send({"status":"error", "message": "Cannot divide by zero"});
-  }
+ 
    return res.status(200).send({"result": result});
   
 })
